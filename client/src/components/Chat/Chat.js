@@ -19,9 +19,16 @@ const Chat = ({ location }) => {
 
     //console.log(socket);
 
-    socket.emit("join", { name, room }, ({ error }) => {
-      alert(error);
+    socket.emit("join", { name, room }, () => {
+      //alert(error);
     });
+
+    //when unmount is called
+    return () => {
+      socket.emit("disconnect");
+
+      socket.off();
+    };
   }, [ENDPOINT, location.search]);
 
   return <h1>Chat</h1>;
