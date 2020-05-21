@@ -37,7 +37,8 @@ const getUser = (id) => {
 };
 
 const getUsersInRoom = (room) => {
-  users.filter((user) => user.room === room);
+  const temp = users.filter((user) => user.room === room);
+  return temp;
 };
 
 module.exports = { addUser, removeUser, getUser, getUsersInRoom };

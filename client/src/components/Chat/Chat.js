@@ -5,6 +5,7 @@ import io from "socket.io-client";
 let socket;
 
 import "./Chat.css";
+import TextContainer from "../TextContainer/TextContainer";
 import InfoBar from "../InfoBar/InfoBar";
 import Input from "../Input/Input";
 import Messages from "../Messages/Messages";
@@ -12,6 +13,7 @@ import Messages from "../Messages/Messages";
 const Chat = ({ location }) => {
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
+  const [users, setUsers] = useState("");
   const [message, setMsg] = useState("");
   const [messages, setMsgs] = useState([]);
   const ENDPOINT = "localhost:8000";
@@ -41,6 +43,10 @@ const Chat = ({ location }) => {
   useEffect(() => {
     socket.on("botmsg", (message) => {
       setMsgs((messages) => [...messages, message]);
+    });
+
+    socket.on("roomData", ({ users }) => {
+      setUsers(users);
     });
   }, []);
 
