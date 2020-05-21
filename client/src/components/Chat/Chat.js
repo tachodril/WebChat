@@ -4,9 +4,14 @@ import io from "socket.io-client";
 
 let socket;
 
+import "./Chat.css";
+import InfoBar from "../InfoBar/InfoBar";
+import Input from "../Input/Input";
+
 const Chat = ({ location }) => {
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
+  const [message, setMsg] = useState("");
   const [messages, setMsgs] = useState([]);
   const ENDPOINT = "localhost:8000";
 
@@ -38,7 +43,27 @@ const Chat = ({ location }) => {
     });
   }, [messages]);
 
-  return <h1>Chat</h1>;
+  const sendMessages = (event) => {
+    event.preventDefault();
+    if (message) {
+      socket.emit("sendMessages", message, () => setMsg(""));
+    }
+  };
+
+  console.log(message, messages);
+
+  return (
+    <div className="outerContainer">
+      <div className="container">
+        <InfoBar room={room} />
+        <Input
+          message={message}
+          setMessage={setMessage}
+          sendMessage={sendMessage}
+        />
+      </div>
+    </div>
+  );
 };
 
 export default Chat;
