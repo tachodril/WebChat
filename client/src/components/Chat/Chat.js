@@ -43,7 +43,7 @@ const Chat = ({ location }) => {
     });
   }, [messages]);
 
-  const sendMessages = (event) => {
+  const sendMessage = (event) => {
     event.preventDefault();
     if (message) {
       socket.emit("sendMessages", message, () => setMsg(""));
@@ -56,11 +56,7 @@ const Chat = ({ location }) => {
     <div className="outerContainer">
       <div className="container">
         <InfoBar room={room} />
-        <Input
-          message={message}
-          setMessage={setMessage}
-          sendMessage={sendMessage}
-        />
+        <Input message={message} setMsg={setMsg} sendMessage={sendMessage} />
       </div>
     </div>
   );
