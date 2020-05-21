@@ -40,14 +40,14 @@ const Chat = ({ location }) => {
 
   useEffect(() => {
     socket.on("botmsg", (message) => {
-      setMsgs(...messages, message);
+      setMsgs((messages) => [...messages, message]);
     });
-  }, [messages]);
+  }, []);
 
   const sendMessage = (event) => {
     event.preventDefault();
     if (message) {
-      socket.emit("sendMessages", message, () => setMsg(""));
+      socket.emit("sendMessage", message, () => setMsg(""));
     }
   };
 
@@ -60,6 +60,7 @@ const Chat = ({ location }) => {
         <Messages messages={messages} name={name} />
         <Input message={message} setMsg={setMsg} sendMessage={sendMessage} />
       </div>
+      <TextContainer users={users} />
     </div>
   );
 };
